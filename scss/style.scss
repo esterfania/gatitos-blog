@@ -1,0 +1,248 @@
+/// Estas são as cores principais
+$purple: #a050be;
+$light-grey: #eaeaeb;
+$dark-grey: #464646;
+$yellow: #fabe50;
+
+$img-width: 45%;
+
+%no-decoration {
+  text-decoration: none;
+}
+
+%u-decoration {
+  text-decoration: underline;
+}
+
+@mixin reset-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@mixin flx($property: justify-content, $jty-cnt: center) {
+  display: flex;
+  #{$property}: #{$jty-cnt};
+}
+
+@mixin for-phone-only {
+  @media (max-width: 767.98px) {
+    @content;
+  }
+}
+
+@mixin for-tablet-only {
+  @media (min-width: 768px) and (max-width: 1199.98px) {
+    @content;
+  }
+}
+
+@mixin for-desktop-only {
+  @media (min-width: 1200px) {
+    @content;
+  }
+}
+
+@function calculateREM($size: 16px) {
+  @return $size / 16px * 1rem;
+}
+
+@mixin fontSize($size) {
+  font-size: calculateREM($size);
+}
+@import './header', './footer', './about', './article', './collection',
+  './contact';
+
+$directions: top, bottom, left, right;
+$layout-margin-size: 10px;
+
+@each $direction in $directions {
+  %no-margin-#{$direction} {
+    margin-#{$direction}: 0;
+  }
+  %default-margin-#{$direction} {
+    margin-#{$direction}: $layout-margin-size;
+  }
+  %double-margin-#{$direction} {
+    margin-#{$direction}: $layout-margin-size * 2;
+  }
+  %half-margin-#{$direction} {
+    margin-#{$direction}: $layout-margin-size / 2;
+  }
+}
+
+.main {
+  display: flex;
+  font-family: Arial, Helvetica, sans-serif;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  &__content {
+    @include for-phone-only {
+      width: 100%;
+    }
+    width: 70%;
+    padding: 40px 8px;
+  }
+  &__post {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  &__title {
+    text-decoration: none;
+    @include fontSize(22px);
+    color: $dark-grey;
+    letter-spacing: 1.5px;
+    &:hover {
+      color: $purple;
+    }
+  }
+  &__subtitle {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    @extend %default-margin-top, %double-margin-bottom;
+  }
+
+  &__date {
+    @extend %no-margin-top,
+      %no-margin-bottom,
+      %default-margin-left,
+      %default-margin-right;
+    @include fontSize(12px);
+    font-style: italic;
+  }
+
+  &__tag {
+    @include fontSize(14px);
+    padding: 5px 7px;
+    color: $purple;
+    border: 1px solid $purple;
+    margin: 0 10px;
+  }
+
+  &__details {
+    border: 1px solid $light-grey;
+  }
+
+  &__img {
+    width: 100%;
+  }
+
+  &__description {
+    @include fontSize(14px);
+    max-width: 650px;
+    margin: 0 auto;
+    padding: 40px 0 25px;
+  }
+
+  &__btn {
+    background: $yellow;
+    color: $purple;
+    @include fontSize(16px);
+    letter-spacing: 1.5px;
+    padding: 10px 20px;
+    text-decoration: none;
+    transition: 0.3s;
+
+    &:hover {
+      color: $yellow;
+      background: $purple;
+    }
+  }
+
+  &__info {
+    align-items: center;
+    border-top: 1px solid $light-grey;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+  }
+
+  &__author {
+    width: 50%;
+    border-right: 1px solid $light-grey;
+  }
+
+  &__p {
+    color: $dark-grey;
+    @include fontSize(14px);
+    margin: 10px 0;
+  }
+
+  &__comments {
+    width: 50%;
+  }
+
+  &__a {
+    color: $dark-grey;
+    @include fontSize(14px);
+    margin: 10px 0;
+    text-decoration: none;
+
+    &:hover {
+      color: $purple;
+    }
+  }
+
+  &__sidebar {
+    padding: 40px 10px;
+    width: 25%;
+    @include for-phone-only {
+      width: 100%;
+    }
+    @include for-tablet-only {
+      width: 70%;
+    }
+  }
+  .sidebar {
+    &__top {
+      border: 1px solid $light-grey;
+      padding: 15px 20px;
+    }
+    &__title {
+      background-color: $yellow;
+      text-align: center;
+      padding: 10px 20px;
+      margin: 0;
+      letter-spacing: 1.5px;
+    }
+    &__post {
+      @include reset-list;
+    }
+
+    &__list {
+      align-items: center;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 15px 0;
+      &:not(:last-child) {
+        border-bottom: 1px dashed $light-grey;
+      }
+    }
+
+    &__img {
+      width: 40%;
+    }
+
+    &__details {
+      width: 50%;
+      padding-left: 10px;
+    }
+    &__post-title {
+      @include fontSize(14px);
+      color: $purple;
+      @extend %no-decoration;
+
+      &:hover {
+        @extend %u-decoration;
+      }
+    }
+    &__post-date {
+      @include fontSize(12px);
+      margin: 5px 0 0 0;
+    }
+  }
+}
